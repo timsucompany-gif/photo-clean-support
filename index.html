@@ -1,10 +1,20 @@
 <!doctype html>
+
 <html lang="zh-Hant">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="照片整理大師 Photo Clean Master 支援頁面">
-  <title>照片整理大師｜支援</title>
+
+<meta
+name="description"
+id="meta-description"
+content="PicTidy：照片整理大師支援頁面"
+
+>
+
+  <title id="page-title">
+    PicTidy：照片整理大師｜支援
+  </title>
 
   <style>
     :root {
@@ -25,6 +35,9 @@
         BlinkMacSystemFont,
         "Segoe UI",
         "Noto Sans TC",
+        "Noto Sans JP",
+        "Noto Sans KR",
+        "Noto Sans SC",
         "Helvetica Neue",
         Arial,
         sans-serif;
@@ -46,6 +59,9 @@
 
     .lang-switch {
       display: inline-flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2px;
       padding: 4px;
       border: 1px solid #dfe5e1;
       border-radius: 999px;
@@ -57,10 +73,10 @@
       border: 0;
       background: transparent;
       color: #626c65;
-      padding: 8px 14px;
+      padding: 8px 11px;
       border-radius: 999px;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
       transition: 0.2s ease;
     }
@@ -148,6 +164,25 @@
       display: block;
     }
 
+    @media (max-width: 600px) {
+      .topbar {
+        justify-content: center;
+      }
+
+      .lang-switch {
+        max-width: 100%;
+      }
+
+      .lang-btn {
+        padding: 7px 9px;
+        font-size: 12px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+    }
+
     @media (prefers-color-scheme: dark) {
       body {
         background: #0b100d;
@@ -184,138 +219,370 @@
       }
     }
   </style>
+
 </head>
 
 <body>
   <main>
-    <div class="topbar">
-      <div class="lang-switch">
-        <button
-          class="lang-btn active"
-          id="btn-zh"
-          type="button"
-          onclick="setLanguage('zh')"
-        >
-          中文
-        </button>
 
-        <button
-          class="lang-btn"
-          id="btn-en"
-          type="button"
-          onclick="setLanguage('en')"
-        >
-          English
-        </button>
-      </div>
-    </div>
+```
+<div class="topbar">
+  <div class="lang-switch">
 
-    <img
-      class="icon"
-      src="app-icon.png"
-      alt="照片整理大師 App Icon"
+    <button
+      class="lang-btn active"
+      id="btn-zh"
+      type="button"
+      onclick="setLanguage('zh')"
     >
+      中文
+    </button>
 
-    <div data-lang="zh" class="show">
-      <h1>照片整理大師</h1>
-      <p class="english-name">Photo Clean Master</p>
+    <button
+      class="lang-btn"
+      id="btn-en"
+      type="button"
+      onclick="setLanguage('en')"
+    >
+      English
+    </button>
 
-      <p class="subtitle">
-        簡單整理照片與影片，讓相簿保持清爽。
-      </p>
+    <button
+      class="lang-btn"
+      id="btn-ja"
+      type="button"
+      onclick="setLanguage('ja')"
+    >
+      日本語
+    </button>
 
-      <section class="card">
-        <h2>需要協助？</h2>
+    <button
+      class="lang-btn"
+      id="btn-ko"
+      type="button"
+      onclick="setLanguage('ko')"
+    >
+      한국어
+    </button>
 
-        <p>
-          如果您在使用「照片整理大師」時遇到任何問題，
-          或有任何建議，歡迎透過電子郵件與我們聯絡。
-        </p>
+    <button
+      class="lang-btn"
+      id="btn-zh-cn"
+      type="button"
+      onclick="setLanguage('zh-cn')"
+    >
+      简体中文
+    </button>
 
-        <p class="contact-label">聯絡信箱</p>
+  </div>
+</div>
 
-        <a
-          class="email"
-          href="mailto:timsucompany@gmail.com"
-        >
-          timsucompany@gmail.com
-        </a>
-      </section>
-    </div>
+<img
+  class="icon"
+  src="app-icon.png"
+  id="app-icon"
+  alt="PicTidy：照片整理大師 App Icon"
+>
 
-    <div data-lang="en">
-      <h1>Photo Clean Master</h1>
-      <p class="english-name">照片整理大師</p>
+<!-- Traditional Chinese -->
+<div data-lang="zh" class="show">
 
-      <p class="subtitle">
-        A simple way to organize your photos and videos
-        and keep your library clean.
-      </p>
+  <h1>PicTidy：照片整理大師</h1>
 
-      <section class="card">
-        <h2>Need Help?</h2>
+  <p class="english-name">
+    PicTidy: Photo Cleaner Master
+  </p>
 
-        <p>
-          If you experience any issues while using
-          Photo Clean Master, or if you have any feedback,
-          feel free to contact us by email.
-        </p>
+  <p class="subtitle">
+    簡單整理照片與影片，讓相簿保持清爽。
+  </p>
 
-        <p class="contact-label">Contact Email</p>
+  <section class="card">
 
-        <a
-          class="email"
-          href="mailto:timsucompany@gmail.com"
-        >
-          timsucompany@gmail.com
-        </a>
-      </section>
-    </div>
+    <h2>需要協助？</h2>
 
-    <footer>
-      © 2026 Su Yong Ting
-    </footer>
+    <p>
+      如果您在使用「PicTidy：照片整理大師」時遇到任何問題，
+      或有任何建議，歡迎透過電子郵件與我們聯絡。
+    </p>
+
+    <p class="contact-label">
+      聯絡信箱
+    </p>
+
+    <a
+      class="email"
+      href="mailto:timsucompany@gmail.com"
+    >
+      timsucompany@gmail.com
+    </a>
+
+  </section>
+</div>
+
+<!-- English -->
+<div data-lang="en">
+
+  <h1>PicTidy: Photo Cleaner Master</h1>
+
+  <p class="english-name">
+    PicTidy: Photo Cleaner Master
+  </p>
+
+  <p class="subtitle">
+    A simple way to organize your photos and videos
+    and keep your library clean.
+  </p>
+
+  <section class="card">
+
+    <h2>Need Help?</h2>
+
+    <p>
+      If you experience any issues while using
+      PicTidy: Photo Cleaner Master, or if you have
+      any feedback, feel free to contact us by email.
+    </p>
+
+    <p class="contact-label">
+      Contact Email
+    </p>
+
+    <a
+      class="email"
+      href="mailto:timsucompany@gmail.com"
+    >
+      timsucompany@gmail.com
+    </a>
+
+  </section>
+</div>
+
+<!-- Japanese -->
+<div data-lang="ja">
+
+  <h1>PicTidy：写真整理マスター</h1>
+
+  <p class="english-name">
+    PicTidy：写真整理マスター
+  </p>
+
+  <p class="subtitle">
+    写真や動画を簡単に整理して、
+    フォトライブラリをすっきり保ちます。
+  </p>
+
+  <section class="card">
+
+    <h2>サポートが必要ですか？</h2>
+
+    <p>
+      「PicTidy：写真整理マスター」のご利用中に
+      問題が発生した場合や、ご意見・ご提案がございましたら、
+      メールでお気軽にお問い合わせください。
+    </p>
+
+    <p class="contact-label">
+      お問い合わせ
+    </p>
+
+    <a
+      class="email"
+      href="mailto:timsucompany@gmail.com"
+    >
+      timsucompany@gmail.com
+    </a>
+
+  </section>
+</div>
+
+<!-- Korean -->
+<div data-lang="ko">
+
+  <h1>PicTidy: 사진 정리 마스터</h1>
+
+  <p class="english-name">
+    PicTidy: 사진 정리 마스터
+  </p>
+
+  <p class="subtitle">
+    사진과 동영상을 간편하게 정리하고
+    깔끔한 사진 보관함을 유지하세요.
+  </p>
+
+  <section class="card">
+
+    <h2>도움이 필요하신가요?</h2>
+
+    <p>
+      「PicTidy: 사진 정리 마스터」를 사용하면서
+      문제가 발생했거나 의견 및 제안이 있으시면
+      이메일로 문의해 주세요.
+    </p>
+
+    <p class="contact-label">
+      문의 이메일
+    </p>
+
+    <a
+      class="email"
+      href="mailto:timsucompany@gmail.com"
+    >
+      timsucompany@gmail.com
+    </a>
+
+  </section>
+</div>
+
+<!-- Simplified Chinese -->
+<div data-lang="zh-cn">
+
+  <h1>PicTidy：相册整理大师</h1>
+
+  <p class="english-name">
+    PicTidy：相册整理大师
+  </p>
+
+  <p class="subtitle">
+    轻松整理照片和视频，让相册保持整洁。
+  </p>
+
+  <section class="card">
+
+    <h2>需要帮助？</h2>
+
+    <p>
+      如果您在使用「PicTidy：相册整理大师」时遇到任何问题，
+      或有任何意见和建议，欢迎通过电子邮件联系我们。
+    </p>
+
+    <p class="contact-label">
+      联系邮箱
+    </p>
+
+    <a
+      class="email"
+      href="mailto:timsucompany@gmail.com"
+    >
+      timsucompany@gmail.com
+    </a>
+
+  </section>
+</div>
+
+<footer>
+  © 2026 Su Yong Ting
+</footer>
+```
+
   </main>
 
   <script>
+    const languages = {
+      zh: {
+        htmlLang: 'zh-Hant',
+        title: 'PicTidy：照片整理大師｜支援',
+        description: 'PicTidy：照片整理大師支援頁面',
+        iconAlt: 'PicTidy：照片整理大師 App Icon'
+      },
+
+      en: {
+        htmlLang: 'en',
+        title: 'PicTidy: Photo Cleaner Master | Support',
+        description: 'PicTidy: Photo Cleaner Master support page',
+        iconAlt: 'PicTidy: Photo Cleaner Master App Icon'
+      },
+
+      ja: {
+        htmlLang: 'ja',
+        title: 'PicTidy：写真整理マスター｜サポート',
+        description: 'PicTidy：写真整理マスターのサポートページ',
+        iconAlt: 'PicTidy：写真整理マスター アプリアイコン'
+      },
+
+      ko: {
+        htmlLang: 'ko',
+        title: 'PicTidy: 사진 정리 마스터 | 지원',
+        description: 'PicTidy: 사진 정리 마스터 지원 페이지',
+        iconAlt: 'PicTidy: 사진 정리 마스터 앱 아이콘'
+      },
+
+      'zh-cn': {
+        htmlLang: 'zh-CN',
+        title: 'PicTidy：相册整理大师｜支持',
+        description: 'PicTidy：相册整理大师支持页面',
+        iconAlt: 'PicTidy：相册整理大师 App 图标'
+      }
+    };
+
     function setLanguage(lang) {
-      const zhSection = document.querySelector('[data-lang="zh"]');
-      const enSection = document.querySelector('[data-lang="en"]');
+      const sections =
+        document.querySelectorAll('[data-lang]');
 
-      const zhButton = document.getElementById('btn-zh');
-      const enButton = document.getElementById('btn-en');
+      const buttons =
+        document.querySelectorAll('.lang-btn');
 
-      if (lang === 'en') {
-        zhSection.classList.remove('show');
-        enSection.classList.add('show');
+      sections.forEach(section => {
+        section.classList.toggle(
+          'show',
+          section.dataset.lang === lang
+        );
+      });
 
-        zhButton.classList.remove('active');
-        enButton.classList.add('active');
+      buttons.forEach(button => {
+        button.classList.remove('active');
+      });
 
-        document.documentElement.lang = 'en';
-        document.title = 'Photo Clean Master | Support';
-      } else {
-        enSection.classList.remove('show');
-        zhSection.classList.add('show');
+      const activeButton =
+        document.getElementById(
+          lang === 'zh-cn'
+            ? 'btn-zh-cn'
+            : 'btn-' + lang
+        );
 
-        enButton.classList.remove('active');
-        zhButton.classList.add('active');
-
-        document.documentElement.lang = 'zh-Hant';
-        document.title = '照片整理大師｜支援';
+      if (activeButton) {
+        activeButton.classList.add('active');
       }
 
-      localStorage.setItem('support-language', lang);
+      const info = languages[lang];
+
+      if (info) {
+        document.documentElement.lang =
+          info.htmlLang;
+
+        document.title =
+          info.title;
+
+        document
+          .getElementById('meta-description')
+          .setAttribute(
+            'content',
+            info.description
+          );
+
+        document
+          .getElementById('app-icon')
+          .setAttribute(
+            'alt',
+            info.iconAlt
+          );
+      }
+
+      localStorage.setItem(
+        'support-language',
+        lang
+      );
     }
 
     const savedLanguage =
       localStorage.getItem('support-language');
 
-    if (savedLanguage === 'en') {
-      setLanguage('en');
+    if (languages[savedLanguage]) {
+      setLanguage(savedLanguage);
     } else {
       setLanguage('zh');
     }
   </script>
+
 </body>
 </html>
