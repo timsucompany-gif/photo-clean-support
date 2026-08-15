@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="照片整理大師 Photo Clean Master 支援頁面">
+  <title>照片整理大師｜支援</title>
+
+  <style>
+    :root {
+      color-scheme: light dark;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Noto Sans TC",
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+      background: #f5f7f6;
+      color: #17201b;
+    }
+
+    main {
+      width: min(92%, 560px);
+      padding: 36px 28px 40px;
+      text-align: center;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 20px;
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      padding: 4px;
+      border: 1px solid #dfe5e1;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(10px);
+    }
+
+    .lang-btn {
+      border: 0;
+      background: transparent;
+      color: #626c65;
+      padding: 8px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: 0.2s ease;
+    }
+
+    .lang-btn.active {
+      background: #17201b;
+      color: #ffffff;
+    }
+
+    .icon {
+      width: 112px;
+      height: 112px;
+      border-radius: 25px;
+      object-fit: cover;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.13);
+    }
+
+    h1 {
+      margin: 22px 0 6px;
+      font-size: 30px;
+      letter-spacing: 0.02em;
+    }
+
+    .english-name {
+      margin: 0 0 10px;
+      color: #7a847d;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .subtitle {
+      margin: 0 auto 34px;
+      color: #657068;
+      line-height: 1.7;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #e4e8e5;
+      border-radius: 18px;
+      padding: 24px;
+      text-align: left;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.045);
+    }
+
+    h2 {
+      margin: 0 0 10px;
+      font-size: 19px;
+    }
+
+    p {
+      line-height: 1.75;
+      margin: 8px 0;
+    }
+
+    .contact-label {
+      margin-top: 22px;
+      font-weight: 700;
+    }
+
+    .email {
+      display: inline-block;
+      margin-top: 4px;
+      color: #168447;
+      text-decoration: none;
+      font-weight: 700;
+      word-break: break-all;
+    }
+
+    .email:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      margin-top: 34px;
+      color: #8a928d;
+      font-size: 13px;
+    }
+
+    [data-lang] {
+      display: none;
+    }
+
+    [data-lang].show {
+      display: block;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: #0b100d;
+        color: #f2f5f3;
+      }
+
+      .subtitle,
+      .english-name,
+      footer {
+        color: #929b95;
+      }
+
+      .card {
+        background: #121915;
+        border-color: #263029;
+      }
+
+      .lang-switch {
+        background: rgba(18, 25, 21, 0.85);
+        border-color: #2c3830;
+      }
+
+      .lang-btn {
+        color: #aab3ad;
+      }
+
+      .lang-btn.active {
+        background: #f2f5f3;
+        color: #121915;
+      }
+
+      .email {
+        color: #79e89e;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div class="topbar">
+      <div class="lang-switch">
+        <button
+          class="lang-btn active"
+          id="btn-zh"
+          type="button"
+          onclick="setLanguage('zh')"
+        >
+          中文
+        </button>
+
+        <button
+          class="lang-btn"
+          id="btn-en"
+          type="button"
+          onclick="setLanguage('en')"
+        >
+          English
+        </button>
+      </div>
+    </div>
+
+    <img
+      class="icon"
+      src="app-icon.png"
+      alt="照片整理大師 App Icon"
+    >
+
+    <div data-lang="zh" class="show">
+      <h1>照片整理大師</h1>
+      <p class="english-name">Photo Clean Master</p>
+
+      <p class="subtitle">
+        簡單整理照片與影片，讓相簿保持清爽。
+      </p>
+
+      <section class="card">
+        <h2>需要協助？</h2>
+
+        <p>
+          如果您在使用「照片整理大師」時遇到任何問題，
+          或有任何建議，歡迎透過電子郵件與我們聯絡。
+        </p>
+
+        <p class="contact-label">聯絡信箱</p>
+
+        <a
+          class="email"
+          href="mailto:timsucompany@gmail.com"
+        >
+          timsucompany@gmail.com
+        </a>
+      </section>
+    </div>
+
+    <div data-lang="en">
+      <h1>Photo Clean Master</h1>
+      <p class="english-name">照片整理大師</p>
+
+      <p class="subtitle">
+        A simple way to organize your photos and videos
+        and keep your library clean.
+      </p>
+
+      <section class="card">
+        <h2>Need Help?</h2>
+
+        <p>
+          If you experience any issues while using
+          Photo Clean Master, or if you have any feedback,
+          feel free to contact us by email.
+        </p>
+
+        <p class="contact-label">Contact Email</p>
+
+        <a
+          class="email"
+          href="mailto:timsucompany@gmail.com"
+        >
+          timsucompany@gmail.com
+        </a>
+      </section>
+    </div>
+
+    <footer>
+      © 2026 Su Yong Ting
+    </footer>
+  </main>
+
+  <script>
+    function setLanguage(lang) {
+      const zhSection = document.querySelector('[data-lang="zh"]');
+      const enSection = document.querySelector('[data-lang="en"]');
+
+      const zhButton = document.getElementById('btn-zh');
+      const enButton = document.getElementById('btn-en');
+
+      if (lang === 'en') {
+        zhSection.classList.remove('show');
+        enSection.classList.add('show');
+
+        zhButton.classList.remove('active');
+        enButton.classList.add('active');
+
+        document.documentElement.lang = 'en';
+        document.title = 'Photo Clean Master | Support';
+      } else {
+        enSection.classList.remove('show');
+        zhSection.classList.add('show');
+
+        enButton.classList.remove('active');
+        zhButton.classList.add('active');
+
+        document.documentElement.lang = 'zh-Hant';
+        document.title = '照片整理大師｜支援';
+      }
+
+      localStorage.setItem('support-language', lang);
+    }
+
+    const savedLanguage =
+      localStorage.getItem('support-language');
+
+    if (savedLanguage === 'en') {
+      setLanguage('en');
+    } else {
+      setLanguage('zh');
+    }
+  </script>
+</body>
+</html>
