@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="zh-Hant">
 <head>
@@ -6,10 +7,12 @@
 
   <meta
     name="description"
-    content="AI Clean：照片整理大師支援頁面"
+    content="AI Clean：照片整理大師｜快速整理照片與影片"
   >
 
-  <title>AI Clean：照片整理大師｜支援</title>
+  <meta name="theme-color" content="#f5f7f6">
+
+  <title>AI Clean：照片整理大師</title>
 
   <style>
     :root {
@@ -21,11 +24,18 @@
       --subtext: #6f7872;
       --border: #e4e9e6;
       --accent: #168447;
-      --shadow: rgba(18, 32, 24, 0.07);
+      --shadow: rgba(18, 32, 24, 0.08);
+
+      --store-bg: #111111;
+      --store-text: #ffffff;
     }
 
     * {
       box-sizing: border-box;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
     }
 
     body {
@@ -46,12 +56,18 @@
 
       background: var(--bg);
       color: var(--text);
+
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      -webkit-tap-highlight-color: transparent;
     }
 
     .page {
-      width: min(100%, 620px);
+      width: min(100%, 560px);
       margin: 0 auto;
-      padding: 28px 24px 48px;
+      padding: 22px 20px 42px;
     }
 
     /* -------------------------
@@ -63,8 +79,8 @@
       justify-content: flex-end;
       align-items: center;
 
-      min-height: 42px;
-      margin-bottom: 42px;
+      min-height: 40px;
+      margin-bottom: 30px;
     }
 
     .language {
@@ -76,16 +92,16 @@
       align-items: center;
       gap: 8px;
 
-      height: 40px;
-      padding: 0 14px;
+      height: 38px;
+      padding: 0 13px;
 
       border: 1px solid var(--border);
       border-radius: 12px;
 
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.82);
       color: var(--text);
 
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
 
       cursor: pointer;
@@ -102,7 +118,7 @@
     }
 
     .globe {
-      font-size: 16px;
+      font-size: 15px;
       line-height: 1;
     }
 
@@ -116,6 +132,7 @@
       transform: rotate(45deg) translateY(-2px);
 
       opacity: 0.6;
+
       transition: transform 0.18s ease;
     }
 
@@ -197,23 +214,24 @@
     .icon {
       display: block;
 
-      width: 112px;
-      height: 112px;
+      width: 94px;
+      height: 94px;
 
       margin: 0 auto;
 
-      border-radius: 25px;
+      border-radius: 22px;
 
       object-fit: cover;
 
       box-shadow:
-        0 14px 35px rgba(0, 0, 0, 0.13);
+        0 12px 30px rgba(0, 0, 0, 0.13);
     }
 
     h1 {
-      margin: 24px 0 5px;
+      margin: 20px 0 4px;
 
-      font-size: 29px;
+      font-size: 27px;
+      line-height: 1.25;
       font-weight: 750;
 
       letter-spacing: 0.01em;
@@ -224,70 +242,179 @@
 
       color: #89918c;
 
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 500;
     }
 
     .subtitle {
       max-width: 420px;
 
-      margin: 18px auto 36px;
+      margin: 14px auto 26px;
 
       color: var(--subtext);
 
       font-size: 15px;
-      line-height: 1.7;
+      line-height: 1.65;
     }
 
     /* -------------------------
-       Support card
+       Download
     ------------------------- */
 
-    .card {
+    .download-section {
+      width: 100%;
+      margin-top: 4px;
+    }
+
+    .download-title {
+      margin: 0 0 13px;
+
+      text-align: center;
+
+      font-size: 14px;
+      font-weight: 700;
+
+      color: var(--text);
+    }
+
+    .store-list {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .store-button {
+      display: flex;
+      align-items: center;
+
+      width: 100%;
+      min-height: 64px;
+
+      padding: 11px 17px;
+
+      border-radius: 17px;
+
+      background: var(--store-bg);
+      color: var(--store-text);
+
+      text-decoration: none;
+
+      box-shadow:
+        0 8px 22px rgba(0, 0, 0, 0.12);
+
+      transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+    }
+
+    .store-button:hover {
+      transform: translateY(-1px);
+
+      box-shadow:
+        0 10px 26px rgba(0, 0, 0, 0.16);
+    }
+
+    .store-button:active {
+      transform: scale(0.985);
+    }
+
+    .store-icon {
+      width: 34px;
+      min-width: 34px;
+      height: 34px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-right: 13px;
+
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .store-text {
+      display: flex;
+      flex-direction: column;
+
+      text-align: left;
+
+      line-height: 1.15;
+    }
+
+    .store-small {
+      margin-bottom: 4px;
+
+      font-size: 11px;
+      font-weight: 500;
+
+      opacity: 0.78;
+    }
+
+    .store-large {
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .store-arrow {
+      margin-left: auto;
+
+      font-size: 21px;
+      font-weight: 300;
+
+      opacity: 0.65;
+    }
+
+    /* -------------------------
+       Support
+    ------------------------- */
+
+    .support-card {
       width: 100%;
 
-      padding: 28px;
+      margin-top: 28px;
+      padding: 21px;
 
       text-align: left;
 
       background: var(--card);
 
       border: 1px solid var(--border);
-      border-radius: 20px;
+      border-radius: 18px;
 
       box-shadow:
-        0 10px 32px var(--shadow);
+        0 8px 28px var(--shadow);
     }
 
-    .card h2 {
-      margin: 0 0 12px;
+    .support-card h2 {
+      margin: 0 0 9px;
 
-      font-size: 19px;
+      font-size: 17px;
       font-weight: 700;
     }
 
-    .card p {
+    .support-card p {
       margin: 0;
 
       color: var(--subtext);
 
-      font-size: 15px;
-      line-height: 1.75;
+      font-size: 14px;
+      line-height: 1.65;
     }
 
     .contact {
-      margin-top: 24px;
-      padding-top: 20px;
+      margin-top: 17px;
+      padding-top: 15px;
 
       border-top: 1px solid var(--border);
     }
 
     .contact-label {
-      margin-bottom: 6px !important;
+      margin-bottom: 5px !important;
 
       color: var(--text) !important;
 
-      font-size: 13px !important;
+      font-size: 12px !important;
       font-weight: 700;
 
       opacity: 0.75;
@@ -298,7 +425,7 @@
 
       color: var(--accent);
 
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 700;
 
       text-decoration: none;
@@ -315,13 +442,13 @@
     ------------------------- */
 
     footer {
-      margin-top: 32px;
+      margin-top: 25px;
 
       text-align: center;
 
       color: #929994;
 
-      font-size: 12px;
+      font-size: 11px;
     }
 
     /* -------------------------
@@ -343,31 +470,53 @@
     @media (max-width: 480px) {
       .page {
         padding:
-          20px
-          18px
-          34px;
+          17px
+          16px
+          32px;
       }
 
       .topbar {
-        margin-bottom: 34px;
+        margin-bottom: 25px;
+      }
+
+      .language-button {
+        height: 36px;
+        padding: 0 12px;
       }
 
       .icon {
-        width: 104px;
-        height: 104px;
-        border-radius: 23px;
+        width: 88px;
+        height: 88px;
+        border-radius: 21px;
       }
 
       h1 {
-        font-size: 27px;
+        margin-top: 17px;
+        font-size: 25px;
       }
 
       .subtitle {
-        margin-bottom: 30px;
+        margin-top: 12px;
+        margin-bottom: 23px;
       }
 
-      .card {
-        padding: 23px 21px;
+      .store-button {
+        min-height: 62px;
+        padding: 10px 15px;
+        border-radius: 16px;
+      }
+
+      .store-icon {
+        margin-right: 12px;
+      }
+
+      .store-large {
+        font-size: 16px;
+      }
+
+      .support-card {
+        margin-top: 24px;
+        padding: 19px;
       }
     }
 
@@ -384,6 +533,9 @@
         --border: #263029;
         --accent: #79e89e;
         --shadow: rgba(0, 0, 0, 0.18);
+
+        --store-bg: #f4f5f4;
+        --store-text: #101311;
       }
 
       .language-button {
@@ -396,6 +548,14 @@
 
       .language-option.active {
         background: #18271e;
+      }
+
+      .store-small {
+        opacity: 0.65;
+      }
+
+      .store-arrow {
+        opacity: 0.5;
       }
     }
   </style>
@@ -480,21 +640,22 @@
     </div>
 
 
-    <!-- App Icon -->
-    <img
-      class="icon"
-      src="app-icon.png"
-      alt="照片整理大師 App Icon"
-    >
+    <!-- =========================
+         Traditional Chinese
+    ========================== -->
 
-
-    <!-- Chinese -->
     <div
       data-lang="zh"
       class="show"
     >
 
       <section class="hero">
+
+        <img
+          class="icon"
+          src="app-icon.png"
+          alt="照片整理大師 App Icon"
+        >
 
         <h1>
           AI Clean：照片整理大師
@@ -505,14 +666,82 @@
         </p>
 
         <p class="subtitle">
-          簡單整理照片與影片，
+          簡單整理照片與影片，<br>
           讓相簿保持清爽。
         </p>
 
       </section>
 
 
-      <section class="card">
+      <section class="download-section">
+
+        <p class="download-title">
+          立即下載
+        </p>
+
+        <div class="store-list">
+
+          <a
+            class="store-button"
+            href="https://apps.apple.com/app/id6801095643"
+            target="_blank"
+            rel="noopener"
+          >
+
+            <span class="store-icon">
+              
+            </span>
+
+            <span class="store-text">
+              <span class="store-small">
+                Download on the
+              </span>
+
+              <span class="store-large">
+                App Store
+              </span>
+            </span>
+
+            <span class="store-arrow">
+              ›
+            </span>
+
+          </a>
+
+
+          <a
+            class="store-button"
+            href="https://play.google.com/store/apps/details?id=com.timsucompany.photocleanermaster"
+            target="_blank"
+            rel="noopener"
+          >
+
+            <span class="store-icon">
+              ▶
+            </span>
+
+            <span class="store-text">
+              <span class="store-small">
+                GET IT ON
+              </span>
+
+              <span class="store-large">
+                Google Play
+              </span>
+            </span>
+
+            <span class="store-arrow">
+              ›
+            </span>
+
+          </a>
+
+        </div>
+
+      </section>
+
+
+      <section class="support-card">
 
         <h2>
           需要協助？
@@ -543,10 +772,19 @@
     </div>
 
 
-    <!-- English -->
+    <!-- =========================
+         English
+    ========================== -->
+
     <div data-lang="en">
 
       <section class="hero">
+
+        <img
+          class="icon"
+          src="app-icon.png"
+          alt="Photo Clean Master App Icon"
+        >
 
         <h1>
           AI Clean: Photo Cleaner Master
@@ -557,14 +795,70 @@
         </p>
 
         <p class="subtitle">
-          A simple way to organize your photos and videos
+          A simple way to organize your photos and videos<br>
           and keep your library clean.
         </p>
 
       </section>
 
 
-      <section class="card">
+      <section class="download-section">
+
+        <p class="download-title">
+          Download Now
+        </p>
+
+        <div class="store-list">
+
+          <a
+            class="store-button"
+            href="https://apps.apple.com/app/id6801095643"
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="store-icon"></span>
+
+            <span class="store-text">
+              <span class="store-small">
+                Download on the
+              </span>
+
+              <span class="store-large">
+                App Store
+              </span>
+            </span>
+
+            <span class="store-arrow">›</span>
+          </a>
+
+
+          <a
+            class="store-button"
+            href="https://play.google.com/store/apps/details?id=com.timsucompany.photocleanermaster"
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="store-icon">▶</span>
+
+            <span class="store-text">
+              <span class="store-small">
+                GET IT ON
+              </span>
+
+              <span class="store-large">
+                Google Play
+              </span>
+            </span>
+
+            <span class="store-arrow">›</span>
+          </a>
+
+        </div>
+
+      </section>
+
+
+      <section class="support-card">
 
         <h2>
           Need Help?
@@ -596,10 +890,19 @@
     </div>
 
 
-    <!-- Japanese -->
+    <!-- =========================
+         Japanese
+    ========================== -->
+
     <div data-lang="ja">
 
       <section class="hero">
+
+        <img
+          class="icon"
+          src="app-icon.png"
+          alt="写真整理マスター App Icon"
+        >
 
         <h1>
           AI Clean：写真整理マスター
@@ -610,14 +913,70 @@
         </p>
 
         <p class="subtitle">
-          写真や動画をかんたんに整理して、
+          写真や動画をかんたんに整理して、<br>
           ライブラリをすっきり保ちます。
         </p>
 
       </section>
 
 
-      <section class="card">
+      <section class="download-section">
+
+        <p class="download-title">
+          今すぐダウンロード
+        </p>
+
+        <div class="store-list">
+
+          <a
+            class="store-button"
+            href="https://apps.apple.com/app/id6801095643"
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="store-icon"></span>
+
+            <span class="store-text">
+              <span class="store-small">
+                Download on the
+              </span>
+
+              <span class="store-large">
+                App Store
+              </span>
+            </span>
+
+            <span class="store-arrow">›</span>
+          </a>
+
+
+          <a
+            class="store-button"
+            href="https://play.google.com/store/apps/details?id=com.timsucompany.photocleanermaster"
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="store-icon">▶</span>
+
+            <span class="store-text">
+              <span class="store-small">
+                GET IT ON
+              </span>
+
+              <span class="store-large">
+                Google Play
+              </span>
+            </span>
+
+            <span class="store-arrow">›</span>
+          </a>
+
+        </div>
+
+      </section>
+
+
+      <section class="support-card">
 
         <h2>
           サポートが必要ですか？
@@ -648,10 +1007,19 @@
     </div>
 
 
-    <!-- Korean -->
+    <!-- =========================
+         Korean
+    ========================== -->
+
     <div data-lang="ko">
 
       <section class="hero">
+
+        <img
+          class="icon"
+          src="app-icon.png"
+          alt="사진 정리 마스터 App Icon"
+        >
 
         <h1>
           AI Clean: 사진 정리 마스터
@@ -662,14 +1030,70 @@
         </p>
 
         <p class="subtitle">
-          사진과 동영상을 간편하게 정리하고
+          사진과 동영상을 간편하게 정리하고<br>
           보관함을 깔끔하게 유지하세요.
         </p>
 
       </section>
 
 
-      <section class="card">
+      <section class="download-section">
+
+        <p class="download-title">
+          지금 다운로드
+        </p>
+
+        <div class="store-list">
+
+          <a
+            class="store-button"
+            href="https://apps.apple.com/app/id6801095643"
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="store-icon"></span>
+
+            <span class="store-text">
+              <span class="store-small">
+                Download on the
+              </span>
+
+              <span class="store-large">
+                App Store
+              </span>
+            </span>
+
+            <span class="store-arrow">›</span>
+          </a>
+
+
+          <a
+            class="store-button"
+            href="https://play.google.com/store/apps/details?id=com.timsucompany.photocleanermaster"
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="store-icon">▶</span>
+
+            <span class="store-text">
+              <span class="store-small">
+                GET IT ON
+              </span>
+
+              <span class="store-large">
+                Google Play
+              </span>
+            </span>
+
+            <span class="store-arrow">›</span>
+          </a>
+
+        </div>
+
+      </section>
+
+
+      <section class="support-card">
 
         <h2>
           도움이 필요하신가요?
@@ -700,10 +1124,19 @@
     </div>
 
 
-    <!-- Simplified Chinese -->
+    <!-- =========================
+         Simplified Chinese
+    ========================== -->
+
     <div data-lang="zh-cn">
 
       <section class="hero">
+
+        <img
+          class="icon"
+          src="app-icon.png"
+          alt="相册整理大师 App Icon"
+        >
 
         <h1>
           AI Clean：相册整理大师
@@ -714,14 +1147,70 @@
         </p>
 
         <p class="subtitle">
-          轻松整理照片和视频，
+          轻松整理照片和视频，<br>
           让相册保持清爽整洁。
         </p>
 
       </section>
 
 
-      <section class="card">
+      <section class="download-section">
+
+        <p class="download-title">
+          立即下载
+        </p>
+
+        <div class="store-list">
+
+          <a
+            class="store-button"
+            href="https://apps.apple.com/app/id6801095643"
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="store-icon"></span>
+
+            <span class="store-text">
+              <span class="store-small">
+                Download on the
+              </span>
+
+              <span class="store-large">
+                App Store
+              </span>
+            </span>
+
+            <span class="store-arrow">›</span>
+          </a>
+
+
+          <a
+            class="store-button"
+            href="https://play.google.com/store/apps/details?id=com.timsucompany.photocleanermaster"
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="store-icon">▶</span>
+
+            <span class="store-text">
+              <span class="store-small">
+                GET IT ON
+              </span>
+
+              <span class="store-large">
+                Google Play
+              </span>
+            </span>
+
+            <span class="store-arrow">›</span>
+          </a>
+
+        </div>
+
+      </section>
+
+
+      <section class="support-card">
 
         <h2>
           需要帮助？
@@ -760,32 +1249,39 @@
 
 
   <script>
+
     const languageData = {
+
       zh: {
         lang: 'zh-Hant',
         label: '中文',
-        title: 'AI Clean：照片整理大師｜支援'
+        title: 'AI Clean：照片整理大師'
       },
+
       en: {
         lang: 'en',
         label: 'English',
-        title: 'AI Clean: Photo Cleaner Master | Support'
+        title: 'AI Clean: Photo Cleaner Master'
       },
+
       ja: {
         lang: 'ja',
         label: '日本語',
-        title: 'AI Clean：写真整理マスター｜サポート'
+        title: 'AI Clean：写真整理マスター'
       },
+
       ko: {
         lang: 'ko',
         label: '한국어',
-        title: 'AI Clean: 사진 정리 마스터 | 지원'
+        title: 'AI Clean: 사진 정리 마스터'
       },
+
       'zh-cn': {
         lang: 'zh-CN',
         label: '简体中文',
-        title: 'AI Clean：相册整理大师｜支持'
+        title: 'AI Clean：相册整理大师'
       }
+
     };
 
 
@@ -808,6 +1304,7 @@
         'aria-expanded',
         isOpen
       );
+
     }
 
 
@@ -819,6 +1316,7 @@
         'aria-expanded',
         'false'
       );
+
     }
 
 
@@ -828,6 +1326,7 @@
         lang = 'zh';
       }
 
+
       const sections =
         document.querySelectorAll('[data-lang]');
 
@@ -836,10 +1335,12 @@
 
 
       sections.forEach(section => {
+
         section.classList.toggle(
           'show',
           section.dataset.lang === lang
         );
+
       });
 
 
@@ -856,36 +1357,45 @@
       }
 
 
-      const data = languageData[lang];
+      const data =
+        languageData[lang];
+
 
       currentLanguage.textContent =
         data.label;
 
+
       document.documentElement.lang =
         data.lang;
 
+
       document.title =
         data.title;
+
 
       localStorage.setItem(
         'support-language',
         lang
       );
 
+
       closeLanguageMenu();
+
     }
 
 
     document.addEventListener(
       'click',
-      function (event) {
+      function(event) {
 
         if (
           !languageSelector.contains(
             event.target
           )
         ) {
+
           closeLanguageMenu();
+
         }
 
       }
@@ -894,7 +1404,7 @@
 
     document.addEventListener(
       'keydown',
-      function (event) {
+      function(event) {
 
         if (event.key === 'Escape') {
           closeLanguageMenu();
@@ -904,6 +1414,10 @@
     );
 
 
+    /* -------------------------
+       Auto detect language
+    ------------------------- */
+
     const savedLanguage =
       localStorage.getItem(
         'support-language'
@@ -911,11 +1425,48 @@
 
 
     if (languageData[savedLanguage]) {
+
       setLanguage(savedLanguage);
+
     } else {
-      setLanguage('zh');
+
+      const browserLanguage =
+        navigator.language || '';
+
+      let detectedLanguage = 'en';
+
+
+      if (
+        browserLanguage.startsWith('zh-TW') ||
+        browserLanguage.startsWith('zh-HK') ||
+        browserLanguage.startsWith('zh')
+      ) {
+        detectedLanguage = 'zh';
+
+      } else if (
+        browserLanguage.startsWith('ja')
+      ) {
+        detectedLanguage = 'ja';
+
+      } else if (
+        browserLanguage.startsWith('ko')
+      ) {
+        detectedLanguage = 'ko';
+
+      } else if (
+        browserLanguage.startsWith('zh-CN') ||
+        browserLanguage.startsWith('zh-SG')
+      ) {
+        detectedLanguage = 'zh-cn';
+      }
+
+
+      setLanguage(detectedLanguage);
+
     }
+
   </script>
 
 </body>
 </html>
+```
