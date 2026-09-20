@@ -2,1470 +2,1353 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="AI Clean：照片整理大師｜左滑刪除、右滑保留，快速整理照片與影片">
+<meta name="theme-color" content="#0B0D0C">
 
-  <meta
-    name="description"
-    content="AI Clean：照片整理大師｜快速整理照片與影片"
-  >
+<title>AI Clean：照片整理大師</title>
 
-  <meta name="theme-color" content="#f5f7f6">
+<!-- 分享到 IG／FB／LINE 時的預覽卡片 -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI Clean：照片整理大師">
+<meta property="og:description" content="左滑刪除、右滑保留，快速整理照片與影片">
+<meta property="og:image" content="https://你的網域/landing/app-icon.png">
+<meta property="og:url" content="https://你的網域/landing/">
+<meta name="twitter:card" content="summary">
 
-  <title>AI Clean：照片整理大師</title>
+<style>
+  :root{
+    --bg:#0B0D0C;
+    --card:#141815;
+    --line:#242C27;
+    --text:#F2F5F3;
+    --muted:#8F9A94;
+    --accent:#4ADE6A;
+    --ring:#1DB954;
+  }
 
-  <style>
-    :root {
-      color-scheme: light dark;
+  *{
+    box-sizing:border-box
+  }
 
-      --bg: #f5f7f6;
-      --card: #ffffff;
-      --text: #17201b;
-      --subtext: #6f7872;
-      --border: #e4e9e6;
-      --accent: #168447;
-      --shadow: rgba(18, 32, 24, 0.08);
+  html{
+    -webkit-text-size-adjust:100%
+  }
 
-      --store-bg: #111111;
-      --store-text: #ffffff;
+  body{
+    margin:0;
+    min-height:100dvh;
+    background:var(--bg);
+    color:var(--text);
+    font-family:
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      "Noto Sans TC",
+      "Noto Sans JP",
+      "Noto Sans KR",
+      "Noto Sans SC",
+      "Helvetica Neue",
+      Arial,
+      sans-serif;
+    -webkit-font-smoothing:antialiased;
+
+    background-image:
+      radial-gradient(
+        120% 60% at 50% -10%,
+        rgba(29,185,84,.13),
+        transparent 60%
+      );
+
+    background-repeat:no-repeat;
+  }
+
+  a{
+    -webkit-tap-highlight-color:transparent
+  }
+
+  .page{
+    width:min(100%,440px);
+    margin:0 auto;
+    padding:18px 20px calc(36px + env(safe-area-inset-bottom));
+  }
+
+  /* ---------- 語言 ---------- */
+
+  .topbar{
+    display:flex;
+    justify-content:flex-end;
+    min-height:38px;
+    margin-bottom:18px;
+  }
+
+  .lang{
+    position:relative
+  }
+
+  .lang-btn{
+    display:flex;
+    align-items:center;
+    gap:7px;
+
+    height:36px;
+    padding:0 12px;
+
+    border:1px solid var(--line);
+    border-radius:11px;
+
+    background:rgba(255,255,255,.04);
+    color:var(--text);
+
+    font:600 13px/1 inherit;
+    cursor:pointer;
+
+    transition:
+      border-color .18s,
+      background .18s;
+  }
+
+  .lang-btn:hover{
+    border-color:#37423b;
+    background:rgba(255,255,255,.07)
+  }
+
+  .caret{
+    width:6px;
+    height:6px;
+
+    border-right:1.6px solid currentColor;
+    border-bottom:1.6px solid currentColor;
+
+    transform:
+      rotate(45deg)
+      translateY(-2px);
+
+    opacity:.55;
+
+    transition:transform .18s;
+  }
+
+  .lang.open .caret{
+    transform:
+      rotate(225deg)
+      translate(-1px,-1px)
+  }
+
+  .lang-menu{
+    position:absolute;
+    z-index:10;
+
+    top:calc(100% + 8px);
+    right:0;
+
+    width:150px;
+    padding:5px;
+
+    background:var(--card);
+
+    border:1px solid var(--line);
+    border-radius:12px;
+
+    box-shadow:
+      0 16px 40px rgba(0,0,0,.55);
+
+    opacity:0;
+    visibility:hidden;
+
+    transform:translateY(-6px);
+
+    transition:
+      opacity .16s,
+      transform .16s,
+      visibility .16s;
+  }
+
+  .lang.open .lang-menu{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0)
+  }
+
+  .lang-opt{
+    display:block;
+
+    width:100%;
+
+    padding:9px 11px;
+
+    border:0;
+    border-radius:8px;
+
+    background:transparent;
+    color:var(--text);
+
+    font:14px/1.2 inherit;
+    text-align:left;
+
+    cursor:pointer;
+  }
+
+  .lang-opt:hover{
+    background:rgba(255,255,255,.06)
+  }
+
+  .lang-opt[aria-selected="true"]{
+    color:var(--accent);
+    font-weight:700;
+    background:rgba(74,222,106,.10)
+  }
+
+  /* ---------- Hero ---------- */
+
+  .hero{
+    text-align:center
+  }
+
+  /*
+    直接使用你放在網站資料夾裡的 app-icon.png
+    不再使用 SVG Circle / 容量環
+  */
+
+  .icon{
+    display:block;
+
+    width:92px;
+    height:92px;
+
+    margin:0 auto;
+
+    border-radius:21px;
+
+    object-fit:cover;
+
+    background:#101413;
+
+    box-shadow:
+      0 10px 30px rgba(0,0,0,.5);
+  }
+
+  h1{
+    margin:18px 0 2px;
+
+    font-size:26px;
+    line-height:1.25;
+    font-weight:800;
+
+    letter-spacing:.01em;
+
+    text-wrap:balance;
+  }
+
+  h1 .brand-ai{
+    color:var(--text)
+  }
+
+  h1 .brand-clean{
+    color:var(--accent)
+  }
+
+  .alt-name{
+    margin:0;
+
+    color:#6F7A74;
+
+    font-size:12.5px;
+    font-weight:500;
+  }
+
+  .tagline{
+    max-width:330px;
+
+    margin:13px auto 26px;
+
+    color:var(--muted);
+
+    font-size:14.5px;
+    line-height:1.7;
+  }
+
+  /* ---------- 商店按鈕 ---------- */
+
+  .dl-title{
+    margin:0 0 11px;
+
+    text-align:center;
+
+    font-size:11px;
+    font-weight:700;
+
+    letter-spacing:.14em;
+    text-transform:uppercase;
+
+    color:#6F7A74;
+  }
+
+  .stores{
+    display:flex;
+    flex-direction:column;
+    gap:10px
+  }
+
+  .store{
+    display:flex;
+    align-items:center;
+    gap:13px;
+
+    min-height:62px;
+    padding:11px 16px;
+
+    border-radius:15px;
+
+    background:#F4F6F5;
+    color:#0C100E;
+
+    text-decoration:none;
+
+    transition:
+      transform .14s,
+      box-shadow .14s;
+
+    box-shadow:
+      0 6px 20px rgba(0,0,0,.35);
+  }
+
+  .store:hover{
+    transform:translateY(-1px);
+
+    box-shadow:
+      0 10px 26px rgba(0,0,0,.45)
+  }
+
+  .store:active{
+    transform:scale(.985)
+  }
+
+  .store svg{
+    width:26px;
+    height:26px;
+
+    flex:0 0 26px;
+
+    fill:currentColor
+  }
+
+  .store-txt{
+    display:flex;
+    flex-direction:column;
+
+    line-height:1.15;
+
+    text-align:left
+  }
+
+  .store-small{
+    font-size:10.5px;
+    font-weight:600;
+
+    opacity:.62;
+
+    letter-spacing:.02em
+  }
+
+  .store-large{
+    font-size:16.5px;
+    font-weight:700;
+
+    margin-top:3px
+  }
+
+  .store-caret{
+    margin-left:auto;
+
+    font-size:20px;
+    font-weight:300;
+
+    opacity:.45
+  }
+
+  /* IG／FB 內建瀏覽器才顯示的提示 */
+
+  .inapp-note{
+    display:none;
+
+    margin:11px 0 0;
+    padding:10px 13px;
+
+    border:1px solid rgba(74,222,106,.22);
+    border-radius:11px;
+
+    background:rgba(74,222,106,.06);
+    color:var(--accent);
+
+    font-size:12.5px;
+    line-height:1.6;
+  }
+
+  body.in-app .inapp-note{
+    display:block
+  }
+
+  /* ---------- 支援 ---------- */
+
+  .support{
+    margin-top:26px;
+    padding:20px;
+
+    background:var(--card);
+
+    border:1px solid var(--line);
+    border-radius:16px;
+  }
+
+  .support h2{
+    margin:0 0 8px;
+
+    font-size:16px;
+    font-weight:700
+  }
+
+  .support p{
+    margin:0;
+
+    color:var(--muted);
+
+    font-size:13.5px;
+    line-height:1.7
+  }
+
+  .contact{
+    margin-top:15px;
+    padding-top:14px;
+
+    border-top:1px solid var(--line)
+  }
+
+  .contact-label{
+    margin:0 0 4px;
+
+    color:#6F7A74;
+
+    font-size:10.5px;
+    font-weight:700;
+
+    letter-spacing:.12em;
+    text-transform:uppercase;
+  }
+
+  .email{
+    color:var(--accent);
+
+    font-size:13.5px;
+    font-weight:700;
+
+    text-decoration:none;
+
+    word-break:break-all;
+  }
+
+  .email:hover{
+    text-decoration:underline
+  }
+
+  footer{
+    margin-top:22px;
+
+    text-align:center;
+
+    color:#5B655F;
+
+    font-size:11px
+  }
+
+  /* ---------- 小螢幕 ---------- */
+
+  @media (max-width:400px){
+
+    .icon{
+      width:82px;
+      height:82px;
+
+      border-radius:19px
     }
 
-    * {
-      box-sizing: border-box;
+    h1{
+      font-size:23px
     }
 
-    html {
-      -webkit-text-size-adjust: 100%;
+  }
+
+  /* ---------- 減少動畫 ---------- */
+
+  @media (prefers-reduced-motion:reduce){
+
+    *{
+      transition:none !important;
+      animation:none !important
     }
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        "Noto Sans TC",
-        "Noto Sans JP",
-        "Noto Sans KR",
-        "Noto Sans SC",
-        "Helvetica Neue",
-        Arial,
-        sans-serif;
-
-      background: var(--bg);
-      color: var(--text);
-
-      -webkit-font-smoothing: antialiased;
-    }
-
-    a {
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .page {
-      width: min(100%, 560px);
-      margin: 0 auto;
-      padding: 22px 20px 42px;
-    }
-
-    /* -------------------------
-       Top bar
-    ------------------------- */
-
-    .topbar {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-
-      min-height: 40px;
-      margin-bottom: 30px;
-    }
-
-    .language {
-      position: relative;
-    }
-
-    .language-button {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-
-      height: 38px;
-      padding: 0 13px;
-
-      border: 1px solid var(--border);
-      border-radius: 12px;
-
-      background: rgba(255, 255, 255, 0.82);
-      color: var(--text);
-
-      font-size: 13px;
-      font-weight: 600;
-
-      cursor: pointer;
-
-      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.025);
-
-      transition:
-        border-color 0.18s ease,
-        background 0.18s ease;
-    }
-
-    .language-button:hover {
-      border-color: #cdd5d0;
-    }
-
-    .globe {
-      font-size: 15px;
-      line-height: 1;
-    }
-
-    .arrow {
-      width: 7px;
-      height: 7px;
-
-      border-right: 1.5px solid currentColor;
-      border-bottom: 1.5px solid currentColor;
-
-      transform: rotate(45deg) translateY(-2px);
-
-      opacity: 0.6;
-
-      transition: transform 0.18s ease;
-    }
-
-    .language.open .arrow {
-      transform: rotate(225deg) translate(-1px, -1px);
-    }
-
-    .language-menu {
-      position: absolute;
-      z-index: 10;
-
-      top: calc(100% + 8px);
-      right: 0;
-
-      width: 154px;
-      padding: 6px;
-
-      background: var(--card);
-
-      border: 1px solid var(--border);
-      border-radius: 13px;
-
-      box-shadow:
-        0 12px 32px rgba(0, 0, 0, 0.10);
-
-      opacity: 0;
-      visibility: hidden;
-
-      transform: translateY(-5px);
-
-      transition:
-        opacity 0.16s ease,
-        transform 0.16s ease,
-        visibility 0.16s ease;
-    }
-
-    .language.open .language-menu {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    .language-option {
-      width: 100%;
-
-      border: 0;
-      border-radius: 9px;
-
-      padding: 10px 11px;
-
-      background: transparent;
-      color: var(--text);
-
-      text-align: left;
-
-      font-size: 14px;
-
-      cursor: pointer;
-    }
-
-    .language-option:hover {
-      background: #f3f6f4;
-    }
-
-    .language-option.active {
-      font-weight: 700;
-      background: #edf5f0;
-      color: var(--accent);
-    }
-
-    /* -------------------------
-       Hero
-    ------------------------- */
-
-    .hero {
-      text-align: center;
-    }
-
-    .icon {
-      display: block;
-
-      width: 94px;
-      height: 94px;
-
-      margin: 0 auto;
-
-      border-radius: 22px;
-
-      object-fit: cover;
-
-      box-shadow:
-        0 12px 30px rgba(0, 0, 0, 0.13);
-    }
-
-    h1 {
-      margin: 20px 0 4px;
-
-      font-size: 27px;
-      line-height: 1.25;
-      font-weight: 750;
-
-      letter-spacing: 0.01em;
-    }
-
-    .english-name {
-      margin: 0;
-
-      color: #89918c;
-
-      font-size: 13px;
-      font-weight: 500;
-    }
-
-    .subtitle {
-      max-width: 420px;
-
-      margin: 14px auto 26px;
-
-      color: var(--subtext);
-
-      font-size: 15px;
-      line-height: 1.65;
-    }
-
-    /* -------------------------
-       Download
-    ------------------------- */
-
-    .download-section {
-      width: 100%;
-      margin-top: 4px;
-    }
-
-    .download-title {
-      margin: 0 0 13px;
-
-      text-align: center;
-
-      font-size: 14px;
-      font-weight: 700;
-
-      color: var(--text);
-    }
-
-    .store-list {
-      display: flex;
-      flex-direction: column;
-      gap: 11px;
-    }
-
-    .store-button {
-      display: flex;
-      align-items: center;
-
-      width: 100%;
-      min-height: 64px;
-
-      padding: 11px 17px;
-
-      border-radius: 17px;
-
-      background: var(--store-bg);
-      color: var(--store-text);
-
-      text-decoration: none;
-
-      box-shadow:
-        0 8px 22px rgba(0, 0, 0, 0.12);
-
-      transition:
-        transform 0.15s ease,
-        box-shadow 0.15s ease;
-    }
-
-    .store-button:hover {
-      transform: translateY(-1px);
-
-      box-shadow:
-        0 10px 26px rgba(0, 0, 0, 0.16);
-    }
-
-    .store-button:active {
-      transform: scale(0.985);
-    }
-
-    .store-icon {
-      width: 34px;
-      min-width: 34px;
-      height: 34px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      margin-right: 13px;
-
-      font-size: 28px;
-      line-height: 1;
-    }
-
-    .store-text {
-      display: flex;
-      flex-direction: column;
-
-      text-align: left;
-
-      line-height: 1.15;
-    }
-
-    .store-small {
-      margin-bottom: 4px;
-
-      font-size: 11px;
-      font-weight: 500;
-
-      opacity: 0.78;
-    }
-
-    .store-large {
-      font-size: 17px;
-      font-weight: 700;
-    }
-
-    .store-arrow {
-      margin-left: auto;
-
-      font-size: 21px;
-      font-weight: 300;
-
-      opacity: 0.65;
-    }
-
-    /* -------------------------
-       Support
-    ------------------------- */
-
-    .support-card {
-      width: 100%;
-
-      margin-top: 28px;
-      padding: 21px;
-
-      text-align: left;
-
-      background: var(--card);
-
-      border: 1px solid var(--border);
-      border-radius: 18px;
-
-      box-shadow:
-        0 8px 28px var(--shadow);
-    }
-
-    .support-card h2 {
-      margin: 0 0 9px;
-
-      font-size: 17px;
-      font-weight: 700;
-    }
-
-    .support-card p {
-      margin: 0;
-
-      color: var(--subtext);
-
-      font-size: 14px;
-      line-height: 1.65;
-    }
-
-    .contact {
-      margin-top: 17px;
-      padding-top: 15px;
-
-      border-top: 1px solid var(--border);
-    }
-
-    .contact-label {
-      margin-bottom: 5px !important;
-
-      color: var(--text) !important;
-
-      font-size: 12px !important;
-      font-weight: 700;
-
-      opacity: 0.75;
-    }
-
-    .email {
-      display: inline-block;
-
-      color: var(--accent);
-
-      font-size: 14px;
-      font-weight: 700;
-
-      text-decoration: none;
-
-      word-break: break-all;
-    }
-
-    .email:hover {
-      text-decoration: underline;
-    }
-
-    /* -------------------------
-       Footer
-    ------------------------- */
-
-    footer {
-      margin-top: 25px;
-
-      text-align: center;
-
-      color: #929994;
-
-      font-size: 11px;
-    }
-
-    /* -------------------------
-       Language
-    ------------------------- */
-
-    [data-lang] {
-      display: none;
-    }
-
-    [data-lang].show {
-      display: block;
-    }
-
-    /* -------------------------
-       Mobile
-    ------------------------- */
-
-    @media (max-width: 480px) {
-      .page {
-        padding:
-          17px
-          16px
-          32px;
-      }
-
-      .topbar {
-        margin-bottom: 25px;
-      }
-
-      .language-button {
-        height: 36px;
-        padding: 0 12px;
-      }
-
-      .icon {
-        width: 88px;
-        height: 88px;
-        border-radius: 21px;
-      }
-
-      h1 {
-        margin-top: 17px;
-        font-size: 25px;
-      }
-
-      .subtitle {
-        margin-top: 12px;
-        margin-bottom: 23px;
-      }
-
-      .store-button {
-        min-height: 62px;
-        padding: 10px 15px;
-        border-radius: 16px;
-      }
-
-      .store-icon {
-        margin-right: 12px;
-      }
-
-      .store-large {
-        font-size: 16px;
-      }
-
-      .support-card {
-        margin-top: 24px;
-        padding: 19px;
-      }
-    }
-
-    /* -------------------------
-       Dark Mode
-    ------------------------- */
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #0b100d;
-        --card: #121915;
-        --text: #f2f5f3;
-        --subtext: #9ba49e;
-        --border: #263029;
-        --accent: #79e89e;
-        --shadow: rgba(0, 0, 0, 0.18);
-
-        --store-bg: #f4f5f4;
-        --store-text: #101311;
-      }
-
-      .language-button {
-        background: rgba(18, 25, 21, 0.88);
-      }
-
-      .language-option:hover {
-        background: #19221d;
-      }
-
-      .language-option.active {
-        background: #18271e;
-      }
-
-      .store-small {
-        opacity: 0.65;
-      }
-
-      .store-arrow {
-        opacity: 0.5;
-      }
-    }
-  </style>
+  }
+</style>
 </head>
+
 
 <body>
 
-  <main class="page">
+<div class="page">
 
-    <!-- Language Selector -->
-    <div class="topbar">
+  <!-- =========================
+       語言
+  ========================== -->
 
-      <div class="language" id="languageSelector">
+  <div class="topbar">
 
-        <button
-          class="language-button"
-          id="languageButton"
-          type="button"
-          aria-expanded="false"
-          onclick="toggleLanguageMenu()"
+    <div class="lang" id="lang">
+
+      <button
+        class="lang-btn"
+        id="langBtn"
+        type="button"
+        aria-haspopup="listbox"
+        aria-expanded="false"
+      >
+
+        <span aria-hidden="true">
+          🌐
+        </span>
+
+        <span id="langLabel">
+          繁體中文
+        </span>
+
+        <span
+          class="caret"
+          aria-hidden="true"
+        ></span>
+
+      </button>
+
+      <div
+        class="lang-menu"
+        role="listbox"
+        id="langMenu"
+      ></div>
+
+    </div>
+
+  </div>
+
+
+  <main>
+
+    <!-- =========================
+         Hero
+    ========================== -->
+
+    <section class="hero">
+
+      <!-- 直接使用你現有的 App Icon -->
+      <img
+        class="icon"
+        src="app-icon.png"
+        alt="AI Clean"
+      >
+
+      <h1>
+        <span class="brand-ai">
+          AI
+        </span>
+
+        <span class="brand-clean">
+          Clean
+        </span>
+
+        <span id="appName">
+          ：照片整理大師
+        </span>
+      </h1>
+
+      <p
+        class="alt-name"
+        id="altName"
+      >
+        Photo Clean Master
+      </p>
+
+      <p
+        class="tagline"
+        id="tagline"
+      >
+        簡單整理照片與影片，讓相簿保持清爽。
+      </p>
+
+    </section>
+
+
+    <!-- =========================
+         Download
+    ========================== -->
+
+    <section>
+
+      <p
+        class="dl-title"
+        id="dlTitle"
+      >
+        立即下載
+      </p>
+
+
+      <div class="stores">
+
+        <!-- App Store -->
+
+        <a
+          class="store"
+          id="iosLink"
+          href="https://apps.apple.com/app/id6801095643"
+          target="_blank"
+          rel="noopener"
         >
-          <span class="globe">🌐</span>
 
-          <span id="currentLanguage">
-            中文
+          <svg
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+
+            <path d="M16.37 1.43c0 1.14-.47 2.25-1.24 3.05-.83.87-2.2 1.55-3.32 1.46-.13-1.1.42-2.27 1.17-3.02.84-.86 2.3-1.49 3.39-1.49zM20.84 17.12c-.55 1.27-.82 1.84-1.53 2.97-.99 1.57-2.38 3.52-4.1 3.54-1.53.01-1.93-1-4.01-.99-2.08.01-2.51 1-4.05.99-1.72-.03-3.03-1.79-4.02-3.36-2.78-4.37-3.07-9.5-1.36-12.23 1.21-1.94 3.12-3.08 4.92-3.08 1.83 0 2.98.99 4.49.99 1.47 0 2.36-.99 4.48-.99 1.6 0 3.3.87 4.51 2.37-3.96 2.17-3.32 7.83.67 9.79z"/>
+
+          </svg>
+
+
+          <span class="store-txt">
+
+            <span class="store-small">
+              Download on the
+            </span>
+
+            <span class="store-large">
+              App Store
+            </span>
+
           </span>
 
-          <span class="arrow"></span>
-        </button>
 
-        <div class="language-menu">
-
-          <button
-            class="language-option active"
-            id="option-zh"
-            type="button"
-            onclick="setLanguage('zh')"
+          <span
+            class="store-caret"
+            aria-hidden="true"
           >
-            繁體中文
-          </button>
+            ›
+          </span>
 
-          <button
-            class="language-option"
-            id="option-en"
-            type="button"
-            onclick="setLanguage('en')"
+        </a>
+
+
+        <!-- Google Play -->
+
+        <a
+          class="store"
+          id="androidLink"
+          href="https://play.google.com/store/apps/details?id=com.timsucompany.photocleanermaster"
+          target="_blank"
+          rel="noopener"
+        >
+
+          <svg
+            viewBox="0 0 24 24"
+            aria-hidden="true"
           >
-            English
-          </button>
 
-          <button
-            class="language-option"
-            id="option-ja"
-            type="button"
-            onclick="setLanguage('ja')"
+            <path d="M3.6 1.9c-.3.3-.47.74-.47 1.31v17.58c0 .57.17 1.01.47 1.31l.06.06 9.85-9.85v-.23L3.66 1.84l-.06.06zm13.2 6.6L5.62 2.14c-.63-.36-1.2-.33-1.55.03l9.8 9.8 2.93-3.47zm0 7.01l-2.93-3.48-9.8 9.8c.35.37.92.4 1.55.04l11.18-6.36zm4.02-4.53l-2.9-1.65-3.14 3.18 3.14 3.14 2.9-1.65c.9-.51.9-1.51 0-2.02z"/>
+
+          </svg>
+
+
+          <span class="store-txt">
+
+            <span class="store-small">
+              GET IT ON
+            </span>
+
+            <span class="store-large">
+              Google Play
+            </span>
+
+          </span>
+
+
+          <span
+            class="store-caret"
+            aria-hidden="true"
           >
-            日本語
-          </button>
+            ›
+          </span>
 
-          <button
-            class="language-option"
-            id="option-ko"
-            type="button"
-            onclick="setLanguage('ko')"
-          >
-            한국어
-          </button>
-
-          <button
-            class="language-option"
-            id="option-zh-cn"
-            type="button"
-            onclick="setLanguage('zh-cn')"
-          >
-            简体中文
-          </button>
-
-        </div>
+        </a>
 
       </div>
 
-    </div>
+
+      <!-- IG / FB / LINE 內建瀏覽器提示 -->
+
+      <p
+        class="inapp-note"
+        id="inappNote"
+      >
+        若按了沒有跳轉，請點右上角「⋯」選擇「在瀏覽器中開啟」。
+      </p>
+
+    </section>
 
 
     <!-- =========================
-         Traditional Chinese
+         Support
     ========================== -->
 
-    <div
-      data-lang="zh"
-      class="show"
-    >
+    <section class="support">
 
-      <section class="hero">
+      <h2 id="helpTitle">
+        需要協助？
+      </h2>
 
-        <img
-          class="icon"
-          src="app-icon.png"
-          alt="照片整理大師 App Icon"
+      <p id="helpBody">
+        如果您在使用「AI Clean：照片整理大師」時遇到任何問題，
+        或有任何建議，歡迎透過電子郵件與我們聯絡。
+      </p>
+
+
+      <div class="contact">
+
+        <p
+          class="contact-label"
+          id="contactLabel"
         >
-
-        <h1>
-          AI Clean：照片整理大師
-        </h1>
-
-        <p class="english-name">
-          Photo Clean Master
+          聯絡信箱
         </p>
 
-        <p class="subtitle">
-          簡單整理照片與影片，<br>
-          讓相簿保持清爽。
-        </p>
-
-      </section>
-
-
-      <section class="download-section">
-
-        <p class="download-title">
-          立即下載
-        </p>
-
-        <div class="store-list">
-
-          <a
-            class="store-button"
-            href="https://apps.apple.com/app/id6801095643"
-            target="_blank"
-            rel="noopener"
-          >
-
-            <span class="store-icon">
-              
-            </span>
-
-            <span class="store-text">
-              <span class="store-small">
-                Download on the
-              </span>
-
-              <span class="store-large">
-                App Store
-              </span>
-            </span>
-
-            <span class="store-arrow">
-              ›
-            </span>
-
-          </a>
-
-
-          <a
-            class="store-button"
-            href="https://play.google.com/store/apps/details?id=com.timsucompany.photocleanermaster"
-            target="_blank"
-            rel="noopener"
-          >
-
-            <span class="store-icon">
-              ▶
-            </span>
-
-            <span class="store-text">
-              <span class="store-small">
-                GET IT ON
-              </span>
-
-              <span class="store-large">
-                Google Play
-              </span>
-            </span>
-
-            <span class="store-arrow">
-              ›
-            </span>
-
-          </a>
-
-        </div>
-
-      </section>
-
-
-      <section class="support-card">
-
-        <h2>
-          需要協助？
-        </h2>
-
-        <p>
-          如果您在使用「AI Clean：照片整理大師」時遇到任何問題，
-          或有任何建議，歡迎透過電子郵件與我們聯絡。
-        </p>
-
-        <div class="contact">
-
-          <p class="contact-label">
-            聯絡信箱
-          </p>
-
-          <a
-            class="email"
-            href="mailto:timsucompany@gmail.com"
-          >
-            timsucompany@gmail.com
-          </a>
-
-        </div>
-
-      </section>
-
-    </div>
-
-
-    <!-- =========================
-         English
-    ========================== -->
-
-    <div data-lang="en">
-
-      <section class="hero">
-
-        <img
-          class="icon"
-          src="app-icon.png"
-          alt="Photo Clean Master App Icon"
+        <a
+          class="email"
+          href="mailto:timsucompany@gmail.com"
         >
+          timsucompany@gmail.com
+        </a>
 
-        <h1>
-          AI Clean: Photo Cleaner Master
-        </h1>
+      </div>
 
-        <p class="english-name">
-          照片整理大師
-        </p>
-
-        <p class="subtitle">
-          A simple way to organize your photos and videos<br>
-          and keep your library clean.
-        </p>
-
-      </section>
-
-
-      <section class="download-section">
-
-        <p class="download-title">
-          Download Now
-        </p>
-
-        <div class="store-list">
-
-          <a
-            class="store-button"
-            href="https://apps.apple.com/app/id6801095643"
-            target="_blank"
-            rel="noopener"
-          >
-            <span class="store-icon"></span>
-
-            <span class="store-text">
-              <span class="store-small">
-                Download on the
-              </span>
-
-              <span class="store-large">
-                App Store
-              </span>
-            </span>
-
-            <span class="store-arrow">›</span>
-          </a>
-
-
-          <a
-            class="store-button"
-            href="https://play.google.com/store/apps/details?id=com.timsucompany.photocleanermaster"
-            target="_blank"
-            rel="noopener"
-          >
-            <span class="store-icon">▶</span>
-
-            <span class="store-text">
-              <span class="store-small">
-                GET IT ON
-              </span>
-
-              <span class="store-large">
-                Google Play
-              </span>
-            </span>
-
-            <span class="store-arrow">›</span>
-          </a>
-
-        </div>
-
-      </section>
-
-
-      <section class="support-card">
-
-        <h2>
-          Need Help?
-        </h2>
-
-        <p>
-          If you experience any issues while using
-          AI Clean: Photo Cleaner Master, or if you have any feedback,
-          feel free to contact us by email.
-        </p>
-
-        <div class="contact">
-
-          <p class="contact-label">
-            Contact Email
-          </p>
-
-          <a
-            class="email"
-            href="mailto:timsucompany@gmail.com"
-          >
-            timsucompany@gmail.com
-          </a>
-
-        </div>
-
-      </section>
-
-    </div>
-
-
-    <!-- =========================
-         Japanese
-    ========================== -->
-
-    <div data-lang="ja">
-
-      <section class="hero">
-
-        <img
-          class="icon"
-          src="app-icon.png"
-          alt="写真整理マスター App Icon"
-        >
-
-        <h1>
-          AI Clean：写真整理マスター
-        </h1>
-
-        <p class="english-name">
-          Photo Clean Master
-        </p>
-
-        <p class="subtitle">
-          写真や動画をかんたんに整理して、<br>
-          ライブラリをすっきり保ちます。
-        </p>
-
-      </section>
-
-
-      <section class="download-section">
-
-        <p class="download-title">
-          今すぐダウンロード
-        </p>
-
-        <div class="store-list">
-
-          <a
-            class="store-button"
-            href="https://apps.apple.com/app/id6801095643"
-            target="_blank"
-            rel="noopener"
-          >
-            <span class="store-icon"></span>
-
-            <span class="store-text">
-              <span class="store-small">
-                Download on the
-              </span>
-
-              <span class="store-large">
-                App Store
-              </span>
-            </span>
-
-            <span class="store-arrow">›</span>
-          </a>
-
-
-          <a
-            class="store-button"
-            href="https://play.google.com/store/apps/details?id=com.timsucompany.photocleanermaster"
-            target="_blank"
-            rel="noopener"
-          >
-            <span class="store-icon">▶</span>
-
-            <span class="store-text">
-              <span class="store-small">
-                GET IT ON
-              </span>
-
-              <span class="store-large">
-                Google Play
-              </span>
-            </span>
-
-            <span class="store-arrow">›</span>
-          </a>
-
-        </div>
-
-      </section>
-
-
-      <section class="support-card">
-
-        <h2>
-          サポートが必要ですか？
-        </h2>
-
-        <p>
-          AI Clean：写真整理マスターのご利用中に問題が発生した場合や、
-          ご意見・ご要望がございましたら、メールでお気軽にお問い合わせください。
-        </p>
-
-        <div class="contact">
-
-          <p class="contact-label">
-            お問い合わせ先
-          </p>
-
-          <a
-            class="email"
-            href="mailto:timsucompany@gmail.com"
-          >
-            timsucompany@gmail.com
-          </a>
-
-        </div>
-
-      </section>
-
-    </div>
-
-
-    <!-- =========================
-         Korean
-    ========================== -->
-
-    <div data-lang="ko">
-
-      <section class="hero">
-
-        <img
-          class="icon"
-          src="app-icon.png"
-          alt="사진 정리 마스터 App Icon"
-        >
-
-        <h1>
-          AI Clean: 사진 정리 마스터
-        </h1>
-
-        <p class="english-name">
-          Photo Clean Master
-        </p>
-
-        <p class="subtitle">
-          사진과 동영상을 간편하게 정리하고<br>
-          보관함을 깔끔하게 유지하세요.
-        </p>
-
-      </section>
-
-
-      <section class="download-section">
-
-        <p class="download-title">
-          지금 다운로드
-        </p>
-
-        <div class="store-list">
-
-          <a
-            class="store-button"
-            href="https://apps.apple.com/app/id6801095643"
-            target="_blank"
-            rel="noopener"
-          >
-            <span class="store-icon"></span>
-
-            <span class="store-text">
-              <span class="store-small">
-                Download on the
-              </span>
-
-              <span class="store-large">
-                App Store
-              </span>
-            </span>
-
-            <span class="store-arrow">›</span>
-          </a>
-
-
-          <a
-            class="store-button"
-            href="https://play.google.com/store/apps/details?id=com.timsucompany.photocleanermaster"
-            target="_blank"
-            rel="noopener"
-          >
-            <span class="store-icon">▶</span>
-
-            <span class="store-text">
-              <span class="store-small">
-                GET IT ON
-              </span>
-
-              <span class="store-large">
-                Google Play
-              </span>
-            </span>
-
-            <span class="store-arrow">›</span>
-          </a>
-
-        </div>
-
-      </section>
-
-
-      <section class="support-card">
-
-        <h2>
-          도움이 필요하신가요?
-        </h2>
-
-        <p>
-          AI Clean: 사진 정리 마스터를 사용하면서 문제가 발생했거나
-          의견 또는 제안이 있다면 이메일로 언제든지 문의해 주세요.
-        </p>
-
-        <div class="contact">
-
-          <p class="contact-label">
-            문의 이메일
-          </p>
-
-          <a
-            class="email"
-            href="mailto:timsucompany@gmail.com"
-          >
-            timsucompany@gmail.com
-          </a>
-
-        </div>
-
-      </section>
-
-    </div>
-
-
-    <!-- =========================
-         Simplified Chinese
-    ========================== -->
-
-    <div data-lang="zh-cn">
-
-      <section class="hero">
-
-        <img
-          class="icon"
-          src="app-icon.png"
-          alt="相册整理大师 App Icon"
-        >
-
-        <h1>
-          AI Clean：相册整理大师
-        </h1>
-
-        <p class="english-name">
-          Photo Clean Master
-        </p>
-
-        <p class="subtitle">
-          轻松整理照片和视频，<br>
-          让相册保持清爽整洁。
-        </p>
-
-      </section>
-
-
-      <section class="download-section">
-
-        <p class="download-title">
-          立即下载
-        </p>
-
-        <div class="store-list">
-
-          <a
-            class="store-button"
-            href="https://apps.apple.com/app/id6801095643"
-            target="_blank"
-            rel="noopener"
-          >
-            <span class="store-icon"></span>
-
-            <span class="store-text">
-              <span class="store-small">
-                Download on the
-              </span>
-
-              <span class="store-large">
-                App Store
-              </span>
-            </span>
-
-            <span class="store-arrow">›</span>
-          </a>
-
-
-          <a
-            class="store-button"
-            href="https://play.google.com/store/apps/details?id=com.timsucompany.photocleanermaster"
-            target="_blank"
-            rel="noopener"
-          >
-            <span class="store-icon">▶</span>
-
-            <span class="store-text">
-              <span class="store-small">
-                GET IT ON
-              </span>
-
-              <span class="store-large">
-                Google Play
-              </span>
-            </span>
-
-            <span class="store-arrow">›</span>
-          </a>
-
-        </div>
-
-      </section>
-
-
-      <section class="support-card">
-
-        <h2>
-          需要帮助？
-        </h2>
-
-        <p>
-          如果您在使用“AI Clean：相册整理大师”时遇到任何问题，
-          或有任何建议，欢迎通过电子邮件与我们联系。
-        </p>
-
-        <div class="contact">
-
-          <p class="contact-label">
-            联系邮箱
-          </p>
-
-          <a
-            class="email"
-            href="mailto:timsucompany@gmail.com"
-          >
-            timsucompany@gmail.com
-          </a>
-
-        </div>
-
-      </section>
-
-    </div>
-
-
-    <footer>
-      © 2026 Su Yong Ting
-    </footer>
+    </section>
 
   </main>
 
 
-  <script>
+  <footer>
+    © 2026 Su Yong Ting
+  </footer>
 
-    const languageData = {
-
-      zh: {
-        lang: 'zh-Hant',
-        label: '中文',
-        title: 'AI Clean：照片整理大師'
-      },
-
-      en: {
-        lang: 'en',
-        label: 'English',
-        title: 'AI Clean: Photo Cleaner Master'
-      },
-
-      ja: {
-        lang: 'ja',
-        label: '日本語',
-        title: 'AI Clean：写真整理マスター'
-      },
-
-      ko: {
-        lang: 'ko',
-        label: '한국어',
-        title: 'AI Clean: 사진 정리 마스터'
-      },
-
-      'zh-cn': {
-        lang: 'zh-CN',
-        label: '简体中文',
-        title: 'AI Clean：相册整理大师'
-      }
-
-    };
+</div>
 
 
-    const languageSelector =
-      document.getElementById('languageSelector');
+<script>
 
-    const languageButton =
-      document.getElementById('languageButton');
+/* =========================================================
+   多語言
+========================================================= */
 
-    const currentLanguage =
-      document.getElementById('currentLanguage');
+const L = {
+
+  'zh-Hant': {
+
+    label:'繁體中文',
+    htmlLang:'zh-Hant',
+
+    title:'AI Clean：照片整理大師',
+
+    appName:'：照片整理大師',
+
+    altName:'Photo Clean Master',
+
+    tagline:
+      '簡單整理照片與影片，讓相簿保持清爽。',
+
+    dlTitle:
+      '立即下載',
+
+    helpTitle:
+      '需要協助？',
+
+    helpBody:
+      '如果您在使用「AI Clean：照片整理大師」時遇到任何問題，或有任何建議，歡迎透過電子郵件與我們聯絡。',
+
+    contactLabel:
+      '聯絡信箱',
+
+    inapp:
+      '若按了沒有跳轉，請點右上角「⋯」選擇「在瀏覽器中開啟」。'
+
+  },
 
 
-    function toggleLanguageMenu() {
+  'zh-Hans': {
 
-      const isOpen =
-        languageSelector.classList.toggle('open');
+    label:'简体中文',
+    htmlLang:'zh-Hans',
 
-      languageButton.setAttribute(
-        'aria-expanded',
-        isOpen
-      );
+    title:'AI Clean：相册整理大师',
+
+    appName:'：相册整理大师',
+
+    altName:'Photo Clean Master',
+
+    tagline:
+      '轻松整理照片和视频，让相册保持清爽整洁。',
+
+    dlTitle:
+      '立即下载',
+
+    helpTitle:
+      '需要帮助？',
+
+    helpBody:
+      '如果您在使用“AI Clean：相册整理大师”时遇到任何问题，或有任何建议，欢迎通过电子邮件与我们联系。',
+
+    contactLabel:
+      '联系邮箱',
+
+    inapp:
+      '若点击后没有跳转，请点右上角“⋯”选择“在浏览器中打开”。'
+
+  },
+
+
+  'en': {
+
+    label:'English',
+    htmlLang:'en',
+
+    title:
+      'AI Clean: Photo Cleaner Master',
+
+    appName:
+      ': Photo Cleaner Master',
+
+    altName:
+      '照片整理大師',
+
+    tagline:
+      'A simple way to tidy your photos and videos, and keep your library clean.',
+
+    dlTitle:
+      'Download',
+
+    helpTitle:
+      'Need help?',
+
+    helpBody:
+      'If you run into any problems using AI Clean: Photo Cleaner Master, or you have feedback, just drop us an email.',
+
+    contactLabel:
+      'Contact',
+
+    inapp:
+      'If nothing happens, tap “⋯” at the top right and choose “Open in browser”.'
+
+  },
+
+
+  'ja': {
+
+    label:'日本語',
+    htmlLang:'ja',
+
+    title:
+      'AI Clean：写真整理マスター',
+
+    appName:
+      '：写真整理マスター',
+
+    altName:
+      'Photo Clean Master',
+
+    tagline:
+      '写真や動画をかんたんに整理して、ライブラリをすっきり保ちます。',
+
+    dlTitle:
+      'ダウンロード',
+
+    helpTitle:
+      'サポートが必要ですか？',
+
+    helpBody:
+      'AI Clean：写真整理マスターのご利用中に問題が発生した場合や、ご意見・ご要望がございましたら、メールでお気軽にお問い合わせください。',
+
+    contactLabel:
+      'お問い合わせ',
+
+    inapp:
+      '反応しない場合は、右上の「⋯」から「ブラウザで開く」を選んでください。'
+
+  },
+
+
+  'ko': {
+
+    label:'한국어',
+    htmlLang:'ko',
+
+    title:
+      'AI Clean: 사진 정리 마스터',
+
+    appName:
+      ': 사진 정리 마스터',
+
+    altName:
+      'Photo Clean Master',
+
+    tagline:
+      '사진과 동영상을 간편하게 정리하고 보관함을 깔끔하게 유지하세요.',
+
+    dlTitle:
+      '다운로드',
+
+    helpTitle:
+      '도움이 필요하신가요?',
+
+    helpBody:
+      'AI Clean: 사진 정리 마스터를 사용하면서 문제가 발생했거나 의견이 있다면 이메일로 언제든지 문의해 주세요.',
+
+    contactLabel:
+      '문의',
+
+    inapp:
+      '눌러도 반응이 없으면 오른쪽 위 “⋯”에서 “브라우저로 열기”를 선택하세요.'
+
+  },
+
+
+  'es': {
+
+    label:'Español',
+    htmlLang:'es',
+
+    title:
+      'AI Clean: Limpiador de Fotos',
+
+    appName:
+      ': Limpiador de Fotos',
+
+    altName:
+      '照片整理大師',
+
+    tagline:
+      'Una forma sencilla de ordenar tus fotos y vídeos y mantener la galería limpia.',
+
+    dlTitle:
+      'Descargar',
+
+    helpTitle:
+      '¿Necesitas ayuda?',
+
+    helpBody:
+      'Si tienes algún problema con AI Clean: Limpiador de Fotos, o quieres enviarnos tus comentarios, escríbenos por correo.',
+
+    contactLabel:
+      'Contacto',
+
+    inapp:
+      'Si no ocurre nada, toca «⋯» arriba a la derecha y elige «Abrir en el navegador».'
+
+  }
+
+};
+
+
+const ORDER = [
+  'zh-Hant',
+  'zh-Hans',
+  'en',
+  'ja',
+  'ko',
+  'es'
+];
+
+
+/* =========================================================
+   Android / IG / FB / LINE
+========================================================= */
+
+const PKG =
+  'com.timsucompany.photocleanermaster';
+
+const PLAY_WEB =
+  'https://play.google.com/store/apps/details?id='
+  + PKG;
+
+
+/*
+  Android：
+
+  在 Instagram / Facebook / LINE
+  等內建瀏覽器裡，直接使用
+  play.google.com 有機會無法交給
+  Google Play App。
+
+  所以 Android 改用 intent://
+
+  如果無法開啟 Play App，
+  browser_fallback_url 會回到正常網頁。
+*/
+
+if (/Android/i.test(navigator.userAgent)) {
+
+  document.getElementById(
+    'androidLink'
+  ).href =
+    'intent://details?id='
+    + PKG
+    + '#Intent;scheme=market;package=com.android.vending;'
+    + 'S.browser_fallback_url='
+    + encodeURIComponent(PLAY_WEB)
+    + ';end';
+
+}
+
+
+/* =========================================================
+   偵測 IG / FB / LINE 等內建瀏覽器
+========================================================= */
+
+if (
+  /Instagram|FBAN|FBAV|Line\/|Twitter|MicroMessenger/i
+  .test(navigator.userAgent)
+) {
+
+  document.body.classList.add(
+    'in-app'
+  );
+
+}
+
+
+/* =========================================================
+   語言選單
+========================================================= */
+
+const langEl =
+  document.getElementById('lang');
+
+const langBtn =
+  document.getElementById('langBtn');
+
+const langMenu =
+  document.getElementById('langMenu');
+
+
+ORDER.forEach(code => {
+
+  const b =
+    document.createElement('button');
+
+  b.className =
+    'lang-opt';
+
+  b.type =
+    'button';
+
+  b.setAttribute(
+    'role',
+    'option'
+  );
+
+  b.dataset.code =
+    code;
+
+  b.textContent =
+    L[code].label;
+
+  b.addEventListener(
+    'click',
+    () => {
+
+      apply(code);
+      close();
 
     }
+  );
+
+  langMenu.appendChild(b);
+
+});
 
 
-    function closeLanguageMenu() {
+function close(){
 
-      languageSelector.classList.remove('open');
+  langEl.classList.remove(
+    'open'
+  );
 
-      languageButton.setAttribute(
-        'aria-expanded',
-        'false'
+  langBtn.setAttribute(
+    'aria-expanded',
+    'false'
+  );
+
+}
+
+
+langBtn.addEventListener(
+  'click',
+  () => {
+
+    const open =
+      langEl.classList.toggle(
+        'open'
       );
 
-    }
-
-
-    function setLanguage(lang) {
-
-      if (!languageData[lang]) {
-        lang = 'zh';
-      }
-
-
-      const sections =
-        document.querySelectorAll('[data-lang]');
-
-      const options =
-        document.querySelectorAll('.language-option');
-
-
-      sections.forEach(section => {
-
-        section.classList.toggle(
-          'show',
-          section.dataset.lang === lang
-        );
-
-      });
-
-
-      options.forEach(option => {
-        option.classList.remove('active');
-      });
-
-
-      const activeOption =
-        document.getElementById('option-' + lang);
-
-      if (activeOption) {
-        activeOption.classList.add('active');
-      }
-
-
-      const data =
-        languageData[lang];
-
-
-      currentLanguage.textContent =
-        data.label;
-
-
-      document.documentElement.lang =
-        data.lang;
-
-
-      document.title =
-        data.title;
-
-
-      localStorage.setItem(
-        'support-language',
-        lang
-      );
-
-
-      closeLanguageMenu();
-
-    }
-
-
-    document.addEventListener(
-      'click',
-      function(event) {
-
-        if (
-          !languageSelector.contains(
-            event.target
-          )
-        ) {
-
-          closeLanguageMenu();
-
-        }
-
-      }
+    langBtn.setAttribute(
+      'aria-expanded',
+      open
     );
 
-
-    document.addEventListener(
-      'keydown',
-      function(event) {
-
-        if (event.key === 'Escape') {
-          closeLanguageMenu();
-        }
-
-      }
-    );
+  }
+);
 
 
-    /* -------------------------
-       Auto detect language
-    ------------------------- */
+document.addEventListener(
+  'click',
+  e => {
 
-    const savedLanguage =
-      localStorage.getItem(
-        'support-language'
+    if (
+      !langEl.contains(e.target)
+    ) {
+
+      close();
+
+    }
+
+  }
+);
+
+
+document.addEventListener(
+  'keydown',
+  e => {
+
+    if (
+      e.key === 'Escape'
+    ) {
+
+      close();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   套用語言
+========================================================= */
+
+function apply(code){
+
+  const t =
+    L[code] ||
+    L['zh-Hant'];
+
+
+  document.documentElement.lang =
+    t.htmlLang;
+
+
+  document.title =
+    t.title;
+
+
+  document.getElementById(
+    'langLabel'
+  ).textContent =
+    t.label;
+
+
+  document.getElementById(
+    'appName'
+  ).textContent =
+    t.appName;
+
+
+  document.getElementById(
+    'altName'
+  ).textContent =
+    t.altName;
+
+
+  document.getElementById(
+    'tagline'
+  ).textContent =
+    t.tagline;
+
+
+  document.getElementById(
+    'dlTitle'
+  ).textContent =
+    t.dlTitle;
+
+
+  document.getElementById(
+    'helpTitle'
+  ).textContent =
+    t.helpTitle;
+
+
+  document.getElementById(
+    'helpBody'
+  ).textContent =
+    t.helpBody;
+
+
+  document.getElementById(
+    'contactLabel'
+  ).textContent =
+    t.contactLabel;
+
+
+  document.getElementById(
+    'inappNote'
+  ).textContent =
+    t.inapp;
+
+
+  langMenu
+    .querySelectorAll('.lang-opt')
+    .forEach(o => {
+
+      o.setAttribute(
+        'aria-selected',
+        o.dataset.code === code
       );
 
+    });
 
-    if (languageData[savedLanguage]) {
 
-      setLanguage(savedLanguage);
+  try {
 
-    } else {
+    localStorage.setItem(
+      'lang',
+      code
+    );
 
-      const browserLanguage =
-        navigator.language || '';
+  } catch(e){}
 
-      let detectedLanguage = 'en';
+}
 
+
+/* =========================================================
+   自動偵測語言
+========================================================= */
+
+function detect(){
+
+  const tags =
+    navigator.languages &&
+    navigator.languages.length
+      ? navigator.languages
+      : [
+          navigator.language ||
+          'en'
+        ];
+
+
+  for (
+    const raw of tags
+  ){
+
+    const tag =
+      raw.toLowerCase();
+
+
+    if (
+      tag.startsWith('zh')
+    ){
 
       if (
-        browserLanguage.startsWith('zh-TW') ||
-        browserLanguage.startsWith('zh-HK') ||
-        browserLanguage.startsWith('zh')
-      ) {
-        detectedLanguage = 'zh';
+        /(^|-)(cn|hans|sg|my)(-|$)/
+        .test(tag)
+      ){
 
-      } else if (
-        browserLanguage.startsWith('ja')
-      ) {
-        detectedLanguage = 'ja';
+        return 'zh-Hans';
 
-      } else if (
-        browserLanguage.startsWith('ko')
-      ) {
-        detectedLanguage = 'ko';
-
-      } else if (
-        browserLanguage.startsWith('zh-CN') ||
-        browserLanguage.startsWith('zh-SG')
-      ) {
-        detectedLanguage = 'zh-cn';
       }
 
-
-      setLanguage(detectedLanguage);
+      return 'zh-Hant';
 
     }
 
-  </script>
+
+    if (
+      tag.startsWith('ja')
+    ){
+
+      return 'ja';
+
+    }
+
+
+    if (
+      tag.startsWith('ko')
+    ){
+
+      return 'ko';
+
+    }
+
+
+    if (
+      tag.startsWith('es')
+    ){
+
+      return 'es';
+
+    }
+
+
+    if (
+      tag.startsWith('en')
+    ){
+
+      return 'en';
+
+    }
+
+  }
+
+
+  return 'en';
+
+}
+
+
+/* =========================================================
+   初始化
+========================================================= */
+
+let saved =
+  null;
+
+try {
+
+  saved =
+    localStorage.getItem(
+      'lang'
+    );
+
+} catch(e){}
+
+
+apply(
+  L[saved]
+    ? saved
+    : detect()
+);
+
+</script>
 
 </body>
 </html>
